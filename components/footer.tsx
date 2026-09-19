@@ -67,20 +67,7 @@ export default function Footer() {
             <Link
               key={l.href}
               href={l.href}
-              style={{
-                padding: "4px 10px",
-                fontSize: 13,
-                color: "var(--text-muted)",
-                textDecoration: "none",
-                borderRadius: 6,
-                transition: "color 0.15s",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.color = "var(--text-secondary)";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.color = "var(--text-muted)";
-              }}
+              className="footer-link"
             >
               {l.label}
             </Link>

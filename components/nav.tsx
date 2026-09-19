@@ -73,26 +73,7 @@ export default function Nav() {
               <Link
                 key={l.href}
                 href={l.href}
-                style={{
-                  padding: "6px 14px",
-                  borderRadius: 8,
-                  fontSize: 14,
-                  fontWeight: 500,
-                  color: active ? "var(--text)" : "var(--text-secondary)",
-                  background: active ? "var(--surface)" : "transparent",
-                  textDecoration: "none",
-                  transition: "color 0.15s, background 0.15s",
-                }}
-                onMouseEnter={(e) => {
-                  if (!active) {
-                    (e.currentTarget as HTMLAnchorElement).style.color = "var(--text)";
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!active) {
-                    (e.currentTarget as HTMLAnchorElement).style.color = "var(--text-secondary)";
-                  }
-                }}
+                className={`nav-link ${active ? "active" : ""}`}
               >
                 {l.label}
               </Link>
@@ -115,12 +96,7 @@ export default function Nav() {
               alignItems: "center",
               gap: 6,
             }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.background = "var(--primary-hover)";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.background = "var(--primary)";
-            }}
+            className="nav-generate-btn"
           >
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M12 3v1m0 16v1M3 12h1m16 0h1M5.636 5.636l.707.707m11.314 11.314.707.707M5.636 18.364l.707-.707M18.364 5.636l-.707.707" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
@@ -212,6 +188,10 @@ export default function Nav() {
       )}
 
       <style>{`
+        .nav-generate-btn:hover {
+          background: var(--primary-hover) !important;
+          transform: translateY(-1px);
+        }
         @media (max-width: 640px) {
           .desktop-nav { display: none !important; }
           .mobile-menu-btn { display: flex !important; }

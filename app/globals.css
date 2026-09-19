@@ -73,6 +73,146 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-space-grotesk), 'Space Grotesk', system-ui, sans-serif;
 }
 
+/* Button & Link UI Components with pure CSS hover */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--primary);
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 24px rgba(168, 85, 247, 0.25);
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+.btn-primary:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 24px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  background: transparent;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.btn-secondary:hover {
+  border-color: var(--text-muted);
+  color: var(--text);
+}
+
+.btn-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 15px 32px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--cta);
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 28px rgba(236, 72, 153, 0.25);
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+.btn-cta:hover {
+  background: var(--cta-hover);
+  transform: translateY(-1px);
+}
+
+.prompt-pill {
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.prompt-pill:hover {
+  border-color: rgba(168, 85, 247, 0.5);
+  color: var(--text);
+}
+
+.nav-link {
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: transparent;
+  text-decoration: none;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+.nav-link:hover {
+  color: var(--text);
+}
+.nav-link.active {
+  color: var(--text);
+  background: var(--surface);
+}
+
+.footer-link {
+  padding: 4px 10px;
+  font-size: 13px;
+  color: var(--text-muted);
+  text-decoration: none;
+  border-radius: 6px;
+  transition: color 0.15s ease;
+}
+.footer-link:hover {
+  color: var(--text-secondary);
+}
+
+.faq-btn {
+  width: 100%;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: var(--surface);
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s;
+}
+.faq-btn:hover, .faq-btn[aria-expanded="true"] {
+  background: var(--surface-2);
+}
+
+.prompt-box {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg);
+  overflow: hidden;
+  transition: border-color 0.15s ease;
+}
+.prompt-box:focus-within {
+  border-color: rgba(168, 85, 247, 0.6);
+}
+
 /* Shimmer animation for skeleton */
 @keyframes shimmer {
   0% { background-position: -200% 0; }

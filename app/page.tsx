@@ -153,63 +153,14 @@ export default function LandingPage() {
               flexWrap: "wrap",
             }}
           >
-            <Link
-              href="/generate"
-              style={{
-                padding: "14px 28px",
-                borderRadius: 10,
-                fontSize: 15,
-                fontWeight: 600,
-                color: "#fff",
-                background: "var(--primary)",
-                textDecoration: "none",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 8,
-                transition: "background 0.15s, transform 0.1s",
-                boxShadow: "0 0 24px rgba(168,85,247,0.25)",
-              }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget as HTMLAnchorElement;
-                el.style.background = "var(--primary-hover)";
-                el.style.transform = "translateY(-1px)";
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget as HTMLAnchorElement;
-                el.style.background = "var(--primary)";
-                el.style.transform = "translateY(0)";
-              }}
-            >
+            <Link href="/generate" className="btn-primary">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M12 3v1m0 16v1M3 12h1m16 0h1M5.636 5.636l.707.707m11.314 11.314.707.707M5.636 18.364l.707-.707M18.364 5.636l-.707.707" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
                 <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="2"/>
               </svg>
               Start Creating
             </Link>
-            <Link
-              href="/about"
-              style={{
-                padding: "14px 24px",
-                borderRadius: 10,
-                fontSize: 15,
-                fontWeight: 500,
-                color: "var(--text-secondary)",
-                border: "1px solid var(--border)",
-                background: "transparent",
-                textDecoration: "none",
-                transition: "border-color 0.15s, color 0.15s",
-              }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget as HTMLAnchorElement;
-                el.style.borderColor = "var(--text-muted)";
-                el.style.color = "var(--text)";
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget as HTMLAnchorElement;
-                el.style.borderColor = "var(--border)";
-                el.style.color = "var(--text-secondary)";
-              }}
-            >
+            <Link href="/about" className="btn-secondary">
               Learn more
             </Link>
           </div>
@@ -234,27 +185,7 @@ export default function LandingPage() {
               <Link
                 key={p}
                 href={`/generate?prompt=${encodeURIComponent(p)}`}
-                style={{
-                  padding: "5px 12px",
-                  borderRadius: 999,
-                  fontSize: 12,
-                  color: "var(--text-secondary)",
-                  border: "1px solid var(--border)",
-                  background: "var(--surface)",
-                  textDecoration: "none",
-                  transition: "border-color 0.15s, color 0.15s",
-                  cursor: "pointer",
-                }}
-                onMouseEnter={(e) => {
-                  const el = e.currentTarget as HTMLAnchorElement;
-                  el.style.borderColor = "rgba(168,85,247,0.5)";
-                  el.style.color = "var(--text)";
-                }}
-                onMouseLeave={(e) => {
-                  const el = e.currentTarget as HTMLAnchorElement;
-                  el.style.borderColor = "var(--border)";
-                  el.style.color = "var(--text-secondary)";
-                }}
+                className="prompt-pill"
               >
                 {p}
               </Link>
@@ -417,33 +348,7 @@ export default function LandingPage() {
           >
             Join thousands generating stunning images every day. It&apos;s free.
           </p>
-          <Link
-            href="/generate"
-            style={{
-              padding: "15px 32px",
-              borderRadius: 10,
-              fontSize: 15,
-              fontWeight: 600,
-              color: "#fff",
-              background: "var(--cta)",
-              textDecoration: "none",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-              transition: "background 0.15s, transform 0.1s",
-              boxShadow: "0 0 28px rgba(236,72,153,0.25)",
-            }}
-            onMouseEnter={(e) => {
-              const el = e.currentTarget as HTMLAnchorElement;
-              el.style.background = "var(--cta-hover)";
-              el.style.transform = "translateY(-1px)";
-            }}
-            onMouseLeave={(e) => {
-              const el = e.currentTarget as HTMLAnchorElement;
-              el.style.background = "var(--cta)";
-              el.style.transform = "translateY(0)";
-            }}
-          >
+          <Link href="/generate" className="btn-cta">
             Start Generating
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>

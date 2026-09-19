@@ -136,49 +136,15 @@ export default function FaqPage() {
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                 <Link
                   href="/about"
-                  style={{
-                    padding: "8px 16px",
-                    borderRadius: 8,
-                    border: "1px solid var(--border)",
-                    background: "transparent",
-                    color: "var(--text-secondary)",
-                    textDecoration: "none",
-                    fontSize: 13,
-                    fontWeight: 500,
-                    transition: "border-color 0.15s, color 0.15s",
-                  }}
-                  onMouseEnter={(e) => {
-                    const el = e.currentTarget as HTMLAnchorElement;
-                    el.style.borderColor = "var(--text-muted)";
-                    el.style.color = "var(--text)";
-                  }}
-                  onMouseLeave={(e) => {
-                    const el = e.currentTarget as HTMLAnchorElement;
-                    el.style.borderColor = "var(--border)";
-                    el.style.color = "var(--text-secondary)";
-                  }}
+                  className="btn-secondary"
+                  style={{ padding: "8px 16px", fontSize: 13, borderRadius: 8 }}
                 >
                   Read About page
                 </Link>
                 <Link
                   href="/generate"
-                  style={{
-                    padding: "8px 16px",
-                    borderRadius: 8,
-                    border: "none",
-                    background: "var(--primary)",
-                    color: "#fff",
-                    textDecoration: "none",
-                    fontSize: 13,
-                    fontWeight: 600,
-                    transition: "background 0.15s",
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.background = "var(--primary-hover)";
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.background = "var(--primary)";
-                  }}
+                  className="btn-primary"
+                  style={{ padding: "8px 16px", fontSize: 13, borderRadius: 8 }}
                 >
                   Try the generator
                 </Link>

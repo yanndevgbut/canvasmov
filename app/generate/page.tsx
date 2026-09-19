@@ -222,21 +222,7 @@ function GenerateContent() {
               >
                 Prompt
               </label>
-              <div
-                style={{
-                  border: "1px solid var(--border)",
-                  borderRadius: 10,
-                  background: "var(--bg)",
-                  overflow: "hidden",
-                  transition: "border-color 0.15s",
-                }}
-                onFocusCapture={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(168,85,247,0.6)";
-                }}
-                onBlurCapture={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.borderColor = "var(--border)";
-                }}
-              >
+              <div className="prompt-box">
                 <textarea
                   id="prompt-input"
                   ref={textareaRef}
@@ -680,25 +666,12 @@ function GenerateContent() {
                     </button>
                     <button
                       onClick={handleDownload}
+                      className="btn-primary"
                       style={{
                         padding: "8px 14px",
-                        borderRadius: 8,
-                        border: "none",
-                        background: "var(--primary)",
-                        color: "#fff",
                         fontSize: 13,
-                        fontWeight: 600,
-                        cursor: "pointer",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 6,
-                        transition: "background 0.15s",
-                      }}
-                      onMouseEnter={(e) => {
-                        (e.currentTarget as HTMLButtonElement).style.background = "var(--primary-hover)";
-                      }}
-                      onMouseLeave={(e) => {
-                        (e.currentTarget as HTMLButtonElement).style.background = "var(--primary)";
+                        borderRadius: 8,
+                        boxShadow: "none",
                       }}
                     >
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">

@@ -150,25 +150,7 @@ function AccordionItem({
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-controls={`${id}-panel`}
-        style={{
-          width: "100%",
-          padding: "18px 20px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: 16,
-          background: open ? "var(--surface-2)" : "var(--surface)",
-          border: "none",
-          cursor: "pointer",
-          textAlign: "left",
-          transition: "background 0.15s",
-        }}
-        onMouseEnter={(e) => {
-          if (!open) (e.currentTarget as HTMLButtonElement).style.background = "var(--surface-2)";
-        }}
-        onMouseLeave={(e) => {
-          if (!open) (e.currentTarget as HTMLButtonElement).style.background = "var(--surface)";
-        }}
+        className="faq-btn"
       >
         <span
           style={{

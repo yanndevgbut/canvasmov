@@ -441,26 +441,8 @@ export default function AboutPage() {
             </div>
             <Link
               href="/generate"
-              style={{
-                padding: "12px 24px",
-                borderRadius: 10,
-                background: "var(--primary)",
-                color: "#fff",
-                textDecoration: "none",
-                fontSize: 14,
-                fontWeight: 600,
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 8,
-                flexShrink: 0,
-                transition: "background 0.15s",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.background = "var(--primary-hover)";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.background = "var(--primary)";
-              }}
+              className="btn-primary"
+              style={{ padding: "12px 24px", fontSize: 14 }}
             >
               Open Generator
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
