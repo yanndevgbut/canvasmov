@@ -62,20 +62,34 @@ async function createTask(prompt: string, ratio: Ratio, devId: string, fcm: stri
   });
 
   if (!res.ok) {
-    throw new Error(`createTask HTTP ${res.status}`);
+    throw new Error(`Generation server error (HTTP ${res.status})`);
   }
 
-  const json = await res.json();
+  const json = await res.json().catch(() => null);
+  if (!json) {
+    throw new Error("Invalid response received from generation server");
+  }
+
   const taskId = json?.data?.taskId;
   if (!taskId) {
-    throw new Error(`No taskId in response: ${JSON.stringify(json)}`);
+    const errorMsg = json?.msg || json?.message || "Failed to initiate task with generation server";
+    throw new Error(errorMsg);
   }
   return taskId;
 }
 
 async function pollTask(taskId: string, devId: string, fcm: string): Promise<string[]> {
-  for (let i = 0; i < 20; i++) {
-    await new Promise((r) => setTimeout(r, 3000));
+  const maxAttempts = 18;
+  const pollIntervalMs = 2500;
+  const startTime = Date.now();
+  const maxTotalWaitMs = 48000; // Safety buffer under Vercel 60s timeout
+
+  for (let i = 0; i < maxAttempts; i++) {
+    if (Date.now() - startTime > maxTotalWaitMs) {
+      break;
+    }
+
+    await new Promise((r) => setTimeout(r, pollIntervalMs));
 
     try {
       const res = await fetch(`${BASE}/image/checkTask`, {
@@ -92,26 +106,36 @@ async function pollTask(taskId: string, devId: string, fcm: string): Promise<str
 
       if (!res.ok) continue;
 
-      const json = await res.json();
+      const json = await res.json().catch(() => null);
+      if (!json) continue;
+
       const data = json?.data || {};
       const state: string = data.state || "processing";
 
       if (state === "success" && data.resultJson) {
-        const parsed = JSON.parse(data.resultJson);
-        const urls: string[] = parsed?.resultUrls?.filter(Boolean) || [];
-        if (urls.length > 0) return urls;
+        try {
+          const parsed = JSON.parse(data.resultJson);
+          const urls: string[] = parsed?.resultUrls?.filter(Boolean) || [];
+          if (urls.length > 0) return urls;
+        } catch {
+          // resultJson parse error, continue polling or fallback
+        }
       }
 
       if (state === "failed") {
-        throw new Error("Task failed on server side");
+        const failReason = data.failReason || data.failMsg || json?.msg || "Image generation was rejected or failed on the server";
+        throw new Error(failReason);
       }
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
-      if (msg === "Task failed on server side") throw err;
-      // transient error — continue polling
+      if (msg.includes("rejected") || msg.includes("failed on the server")) {
+        throw err;
+      }
+      // Transient network error — continue next polling attempt
     }
   }
-  throw new Error("Timeout: image generation took too long");
+
+  throw new Error("Generation timed out. The server may be experiencing high demand. Please try again.");
 }
 
 export async function generateImage(prompt: string, ratio: Ratio): Promise<GenerateResult> {

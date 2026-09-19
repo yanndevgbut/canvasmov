@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Nav from "@/components/nav";
 import Footer from "@/components/footer";
 import FaqAccordion from "@/components/faq-accordion";
@@ -133,7 +134,7 @@ export default function FaqPage() {
                 just try the generator — it answers most questions on its own.
               </p>
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-                <a
+                <Link
                   href="/about"
                   style={{
                     padding: "8px 16px",
@@ -158,8 +159,8 @@ export default function FaqPage() {
                   }}
                 >
                   Read About page
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/generate"
                   style={{
                     padding: "8px 16px",
@@ -180,7 +181,7 @@ export default function FaqPage() {
                   }}
                 >
                   Try the generator
-                </a>
+                </Link>
               </div>
             </div>
           </div>

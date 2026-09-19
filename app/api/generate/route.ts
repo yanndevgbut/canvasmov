@@ -2,12 +2,22 @@ import { NextRequest, NextResponse } from "next/server";
 import { generateImage, Ratio } from "@/lib/nano-api";
 
 export const maxDuration = 60;
+export const dynamic = "force-dynamic";
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
-    const prompt: string = (body.prompt ?? "").trim();
-    const ratio: Ratio = (["1:1", "16:9", "9:16"].includes(body.ratio) ? body.ratio : "1:1") as Ratio;
+    let body: { prompt?: string; ratio?: string };
+    try {
+      body = await req.json();
+    } catch {
+      return NextResponse.json(
+        { success: false, error: "Invalid JSON in request body" },
+        { status: 400 }
+      );
+    }
+
+    const prompt: string = (body?.prompt ?? "").trim();
+    const ratio: Ratio = (["1:1", "16:9", "9:16"].includes(body?.ratio ?? "") ? body.ratio : "1:1") as Ratio;
 
     if (!prompt) {
       return NextResponse.json({ success: false, error: "Prompt cannot be empty" }, { status: 400 });

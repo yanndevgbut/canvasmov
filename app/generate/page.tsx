@@ -28,6 +28,7 @@ function GenerateContent() {
   const [pollMsg, setPollMsg] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const resultRef = useRef<HTMLDivElement>(null);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Auto-resize textarea
   useEffect(() => {
@@ -36,6 +37,15 @@ function GenerateContent() {
     ta.style.height = "auto";
     ta.style.height = `${Math.min(ta.scrollHeight, 240)}px`;
   }, [prompt]);
+
+  // Clean up interval timer on unmount
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+    };
+  }, []);
 
   const pollMessages = [
     "Sending your prompt…",
@@ -53,12 +63,16 @@ function GenerateContent() {
     setError(null);
     setPollMsg(pollMessages[0]);
 
-    // Cycle through poll messages every 5s
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+    }
+
+    // Cycle through poll messages every 4s
     let msgIdx = 0;
-    const msgTimer = setInterval(() => {
+    timerRef.current = setInterval(() => {
       msgIdx = Math.min(msgIdx + 1, pollMessages.length - 1);
       setPollMsg(pollMessages[msgIdx]);
-    }, 5000);
+    }, 4000);
 
     try {
       const res = await fetch("/api/generate", {
@@ -67,8 +81,17 @@ function GenerateContent() {
         body: JSON.stringify({ prompt: prompt.trim(), ratio }),
       });
 
-      clearInterval(msgTimer);
-      const data = await res.json();
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+
+      let data;
+      try {
+        data = await res.json();
+      } catch {
+        throw new Error("Unable to parse server response");
+      }
 
       if (!res.ok || !data.success) {
         throw new Error(data.error ?? "Generation failed");
@@ -85,7 +108,10 @@ function GenerateContent() {
         resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 100);
     } catch (err) {
-      clearInterval(msgTimer);
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
       const msg = err instanceof Error ? err.message : "Something went wrong";
       setError(msg);
       setState("error");
@@ -103,6 +129,7 @@ function GenerateContent() {
     if (!imageUrl) return;
     try {
       const res = await fetch(imageUrl);
+      if (!res.ok) throw new Error("Failed to fetch image blob");
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -111,7 +138,7 @@ function GenerateContent() {
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+      setTimeout(() => URL.revokeObjectURL(url), 1500);
     } catch {
       window.open(imageUrl, "_blank");
     }

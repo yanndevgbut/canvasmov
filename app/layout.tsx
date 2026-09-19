@@ -1,5 +1,24 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import { DM_Sans, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-dm-sans",
+  display: "swap",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
+  display: "swap",
+});
+
+export const viewport: Viewport = {
+  themeColor: "#09090b",
+  width: "device-width",
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   title: {
@@ -28,7 +47,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className={`${dmSans.variable} ${spaceGrotesk.variable}`} suppressHydrationWarning>
       <body>{children}</body>
     </html>
   );
